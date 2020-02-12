@@ -1,25 +1,5 @@
 module Devise
   module Models
-    # Authenticatable Module, responsible for hashing the password and
-    # validating the authenticity of a user while signing in.
-    #
-    # == Options
-    #
-    # DatabaseAuthenticatable adds the following options to devise_for:
-    #
-    #   * +pepper+: a random string used to provide a more secure hash. Use
-    #     `rails secret` to generate new keys.
-    #
-    #   * +stretches+: the cost given to bcrypt.
-    #
-    #   * +send_email_changed_notification+: notify original email when it changes.
-    #
-    #   * +send_password_change_notification+: notify email when password changes.
-    #
-    # == Examples
-    #
-    #    User.find(1).valid_password?('password123')         # returns true/false
-    #
     module ResourceAuthenticatable
       def update_with_password(params)
         current_password = params.delete(:current_password)
