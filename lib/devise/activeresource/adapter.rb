@@ -1,5 +1,7 @@
 module Devise
   module Activeresource
+    # Adapter based on orm_adapter interface
+    # https://github.com/ianwhite/orm_adapter/blob/master/lib/orm_adapter/base.rb
     class Adapter
       attr_reader :klass
 
@@ -44,6 +46,8 @@ module Devise
         conditions, limit, offset = extract_conditions!(options)
         params = conditions.merge(limit_offset_hash(limit, offset))
         klass.find(:first, params: params)
+      rescue ActiveResource::InvalidRequestError
+        nil
       end
 
       # Find all models, optionally matching conditions, and specifying order
@@ -56,12 +60,12 @@ module Devise
 
       # Create a model using attributes
       def create!(attributes = {})
-        raise NotImplementedError
+        klass.create(attributes)
       end
 
       # Destroy an instance by passing in the instance itself.
       def destroy(object)
-        raise NotImplementedError
+        object.destroy
       end
 
       protected
@@ -78,12 +82,10 @@ module Devise
       # with optional :conditions, :limit and :offset keys,
       # returns conditions, limit and offset
       def extract_conditions!(options = {})
-        order      = options.delete(:order)
+        _order     = options.delete(:order)
         limit      = options.delete(:limit)
         offset     = options.delete(:offset)
         conditions = options.delete(:conditions) || options
-
-        raise NotImplementedError if order
 
         [conditions, limit, offset]
       end
@@ -99,5 +101,6 @@ module Devise
 end
 
 ActiveSupport.on_load(:active_resource) do
+  prepend ::Devise::Activeresource::PatchMethods
   include ::Devise::Activeresource::Base
 end

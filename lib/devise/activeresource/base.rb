@@ -19,12 +19,6 @@ module Devise
       def self.included(base)
         base.extend(ClassMethods)
       end
-
-      def [](attribute_name)
-        return attributes[attribute_name] if attributes.include?(attribute_name)
-
-        super
-      end
     end
   end
 end
