@@ -1,4 +1,3 @@
-#require "devise/activeresource/railtie"
 require 'devise'
 require 'devise/activeresource/base'
 require 'devise/activeresource/patch_methods'
