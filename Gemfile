@@ -15,7 +15,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem "rails", "~> 5.2"
-gem "omniauth", "~> 1.3"
+gem "omniauth", "~> 1.9"
 gem "oauth2"
 gem "omniauth-oauth2"
 gem "rdoc"
